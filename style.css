@@ -1,0 +1,65 @@
+body {
+	/*border: 1px solid red;*/
+	background-image: url("images/background.png");
+	
+}
+
+* {
+	padding: 10px;
+}
+
+.title {
+	text-align: center;
+	font-size: 2.0em;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.rps-body {
+	display: flex;
+	flex-direction: column;
+	border: 3px solid red;
+}
+
+.rps-body div {
+	padding: 10px;
+}
+
+.rps-body div div{
+	border: 3px solid black;
+}
+
+/*selection menu*/
+.selection-menu {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.selection-menu div {
+	padding: 40px;
+}
+
+
+/*choice selection*/
+.choice-display {
+	display: flex;
+	justify-content: space-around;
+	
+}
+
+.choice-display div {
+	border: 1px solid red;
+	padding: 30px;
+}
+
+/*result section*/
+.result {
+	text-align: center;
+	padding: 10px;
+}
+
+.hidden {
+	display: hidden;
+}

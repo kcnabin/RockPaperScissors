@@ -3,9 +3,221 @@
 <head>
 	<meta charset="utf-8">
 	<title>Rock, Paper, Scissor</title>
-	<script type="text/javascript" src="jsMainFile.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<div class="rps-body">
+		<div class="title">Rock, Paper, Scissor</div>
+		<div class="selection-menu">
+			<div id="rock">
+				<img src="images/rock.png" max-width="100px" height="100px">
+			</div>
+			<div id="paper">
+				<img src="images/paper.png" width="100px" height="100px">
+			</div>
+			<div id="scissor">
+				<img src="images/scissor.png" width="100px" height="100px">
+			</div>
+		</div>
+		<div class="choice-display">
+			<div class="your-choice">
+				Your Choice
+			</div>
+			<div class="comp-choice">
+				Computer Choice
+			</div>
+		</div>
+		<div class="result">
+			Result
+		</div>
+	</div>
+
+<script type="text/javascript">
+	// simple JavaScript program to play rock, paper and scissor game
+
+// pseudoCode
+// get input from user
+// get computer selection (random value)
+// check game logic
+// declare winner
+
+
+let welcomeMessage;
+welcomeMessage = "Hello user, You will play 'Rock, Paper, Scissor' against computer.";
+console.log(welcomeMessage);
+
+
+// computer selection
+function computerSelection() {
+	// function to return rock, paper or scissor in random
+
+	let myArray = ['rock', 'paper', 'scissor'];
+
+	// get random value from array
+	let randValue = myArray[Math.floor(Math.random() * myArray.length)];
+
+	return randValue;
+}
+
+function sayHi() {
+	console.log("Hi JS!")
+}
+
+// player section
+function userSelection() {
+	// let userChoice;
+	// userChoice = prompt('Choose one, "rock", "paper" or "scissor" ', "rock");
+	// userChoice = userChoice.toLowerCase();
+	// console.log("User choice: " + userChoice);
+	// // string check will be added later
+	// // string will check if user input is one of the three
+
+	// return userChoice;
+
+	// let uSelect =  document.querySelectorAll(".selection-menu div");
+	// for (let select of uSelect) {
+	// 	select.addEventListener("click", sayHi);
+	// }
+
+	// uC = user Choice
+	let uC1 = document.querySelector("#rock");
+	uC1.addEventListener("click", function() {
+		// console.log(this.innerHTML.toLowerCase());
+		uC1.style.cssText = 'box-shadow: 0 0 5px 5px #4287f5;';
+		setTimeout(function () {
+			uC1.style.cssText = 'border: 3px solid green';
+		}, 500);
+		bothSelection("rock");
+	});
+
+	let uC2 = document.querySelector("#paper");
+	uC2.addEventListener("click", function() {
+		bothSelection("paper");
+	});
+
+	let uC3 = document.querySelector("#scissor");
+	uC3.addEventListener("click", function() {
+		bothSelection("scissor");
+	});
+
+}
+
+function checkStatus() {
+	if (userScore >= totalGames) {
+		alert("Congrats, You win!");
+	}
+
+	if (compScore >= totalGames) {
+		alert("Sorry, You lose!");
+	}
+}
+
+function bothSelection(user) {
+	let computer = computerSelection();
+	showUserChoice(user);
+	showCompChoice(computer);
+	checkLogic(user, computer);
+}
+
+function showUserChoice(user) {
+	let choice = document.querySelector(".your-choice");
+	choice.textContent = "Your Choice = " + user.toUpperCase();
+}
+
+function showCompChoice(computer) {
+	let selection = document.querySelector(".comp-choice");
+	selection.textContent = "Computer Choice = " + computer.toUpperCase();
+}
+
+// checks the main logic of the game
+function checkLogic(playerChoice, computerChoice) {
+
+	if (playerChoice == computerChoice) {
+		console.log("Both have choosen same!");
+		console.log("----------------------------");
+		let result = document.querySelector(".result");
+		result.textContent = "Both have choosen same!";
+		result.style.color = "black"
+
+		setTimeout(function() {
+			result.textContent = "RESULT";
+		}, 2000);
+	}
+
+	
+	else if (playerChoice == 'rock') {
+		if (computerChoice == 'paper') {
+			youLose(computerChoice, playerChoice);
+		} else if (computerChoice == 'scissor') {
+			youWin(playerChoice, computerChoice);
+		}
+	} 
+
+	else if (playerChoice == 'paper') {
+		if (computerChoice == 'scissor') {
+			youLose(computerChoice, playerChoice);
+		} else if (computerChoice == 'rock') {
+			youWin(playerChoice, computerChoice);
+		}
+	} else if (playerChoice == 'scissor') {
+		if (computerChoice == 'rock') {
+			youLose(computerChoice, playerChoice);
+		} else if (computerChoice == 'paper') {
+			youWin(playerChoice, computerChoice);
+		}
+	}
+}
+
+// displays if user has lost the game
+function youLose(winner, loser) {
+	compScore++;
+
+	let result = document.querySelector(".result");
+	result.textContent = "SORRY, YOU LOSE";
+	result.style.color = 'red';
+	result.style.fontWeight = "bold";
+	setTimeout(function() {
+		result.textContent = "RESULT";
+	}, 2000);
+
+	console.log("Your score: " + userScore);
+	console.log("Computer score: " + compScore);
+
+	console.log("You lose!");
+	console.log(winner.toUpperCase() + " always beats " + loser.toUpperCase());
+	console.log("----------------------------");
+	checkStatus();
+}
+
+// displays if user has won the game
+function youWin(winner, loser) {
+	userScore++;
+	let result = document.querySelector(".result");
+	result.textContent = "CONGRATS, YOU WIN!";
+	result.style.color = 'green';
+	result.style.fontWeight = "bold";
+	setTimeout(function() {
+		result.textContent = "RESULT";
+	}, 2000);
+
+	console.log("Your score: " + userScore);
+	console.log("Computer score: " + compScore);
+	console.log("Congrats, You win!");
+	console.log(winner.toUpperCase() + " always beats " + loser.toUpperCase());
+
+	console.log("----------------------------");
+	checkStatus();
+}
+
+// start the game
+
+let userScore = 0;
+let compScore = 0;
+let totalGames = 5;
+
+userSelection();
+
+</script>
 
 </body>
 </html>

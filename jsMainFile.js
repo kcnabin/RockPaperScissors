@@ -87,7 +87,7 @@ function playGame() {
 // checkLogic('rock', 'rock');
 
 // play the games many times
-let totalGames = 5;
-for (let i=0; i<totalGames; i++) {
-	playGame();
-}
+// let totalGames = 5;
+// for (let i=0; i<totalGames; i++) {
+// 	playGame();
+// }
