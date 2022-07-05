@@ -3,20 +3,28 @@
 <head>
 	<meta charset="utf-8">
 	<title>Rock, Paper, Scissor</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div class="rps-body">
 		<div class="title">Rock, Paper, Scissor</div>
+		
 		<div class="selection-menu">
 			<div id="rock">
-				<img src="images/rock.png" max-width="100px" height="100px">
+				<img src="images/rock.png">
+				<p>Rock</p>
 			</div>
 			<div id="paper">
-				<img src="images/paper.png" width="100px" height="100px">
+				<img src="images/paper.png">
+				<p>Paper</p>
 			</div>
 			<div id="scissor">
-				<img src="images/scissor.png" width="100px" height="100px">
+				<img src="images/scissor.png">
+				<p>Scissor</p>
 			</div>
 		</div>
 		<div class="choice-display">
@@ -27,27 +35,27 @@
 				Computer Choice
 			</div>
 		</div>
-		<div class="result">
-			Result
+		<div id="result">
+			RESULT
+		</div>
+		<div id="footer">
+			<p>Design by <a href="https://github.com/kcnabin">Nabin KC</a> in association with <a href="https://www.theodinproject.com/">The Odin Project.</a></p>
 		</div>
 	</div>
 
 <script type="text/javascript">
-	// simple JavaScript program to play rock, paper and scissor game
+let welcomeMessage = "Hello user, You will play 'Rock, Paper, Scissor' against computer.";
+let rules = "What are the rules?"
+let rules1 = "If you choose Rock, you will win against Scissors but lose against Paper.";
+let rules2 = "If you choose Scissors, you will win against Paper but lose against Rock.";
+let rules3 = "If you choose Paper, you will win against Rock but lose against Scissors."
 
-// pseudoCode
-// get input from user
-// get computer selection (random value)
-// check game logic
-// declare winner
+let startMessage = [welcomeMessage, rules, rules1, rules2, rules3];
+for (let msg of startMessage) {
+	console.log(msg);
+}
 
-
-let welcomeMessage;
-welcomeMessage = "Hello user, You will play 'Rock, Paper, Scissor' against computer.";
-console.log(welcomeMessage);
-
-
-// computer selection
+// computer selection at random
 function computerSelection() {
 	// function to return rock, paper or scissor in random
 
@@ -59,34 +67,20 @@ function computerSelection() {
 	return randValue;
 }
 
-function sayHi() {
-	console.log("Hi JS!")
+function sayHi(e) {
+	this.classList.add("hovering");
+}
+
+function sayBye(e) {
+	// console.log("Going so soon?");
+	e.target.classList.remove("hovering");
 }
 
 // player section
 function userSelection() {
-	// let userChoice;
-	// userChoice = prompt('Choose one, "rock", "paper" or "scissor" ', "rock");
-	// userChoice = userChoice.toLowerCase();
-	// console.log("User choice: " + userChoice);
-	// // string check will be added later
-	// // string will check if user input is one of the three
 
-	// return userChoice;
-
-	// let uSelect =  document.querySelectorAll(".selection-menu div");
-	// for (let select of uSelect) {
-	// 	select.addEventListener("click", sayHi);
-	// }
-
-	// uC = user Choice
 	let uC1 = document.querySelector("#rock");
 	uC1.addEventListener("click", function() {
-		// console.log(this.innerHTML.toLowerCase());
-		uC1.style.cssText = 'box-shadow: 0 0 5px 5px #4287f5;';
-		setTimeout(function () {
-			uC1.style.cssText = 'border: 3px solid green';
-		}, 500);
 		bothSelection("rock");
 	});
 
@@ -100,16 +94,16 @@ function userSelection() {
 		bothSelection("scissor");
 	});
 
-}
+	// event listener for mouse enter event
+	uC1.addEventListener("mouseover", sayHi);
+	uC2.addEventListener("mouseover", sayHi);
+	uC3.addEventListener("mouseover", sayHi);
 
-function checkStatus() {
-	if (userScore >= totalGames) {
-		alert("Congrats, You win!");
-	}
+	// event listen for mouse out event
+	uC1.addEventListener("mouseout", sayBye);
+	uC2.addEventListener("mouseout", sayBye);
+	uC3.addEventListener("mouseout", sayBye);
 
-	if (compScore >= totalGames) {
-		alert("Sorry, You lose!");
-	}
 }
 
 function bothSelection(user) {
@@ -135,8 +129,8 @@ function checkLogic(playerChoice, computerChoice) {
 	if (playerChoice == computerChoice) {
 		console.log("Both have choosen same!");
 		console.log("----------------------------");
-		let result = document.querySelector(".result");
-		result.textContent = "Both have choosen same!";
+		let result = document.querySelector("#result");
+		result.textContent = "BOTH HAVE CHOOSEN THE SAME!";
 		result.style.color = "black"
 
 		setTimeout(function() {
@@ -170,51 +164,57 @@ function checkLogic(playerChoice, computerChoice) {
 
 // displays if user has lost the game
 function youLose(winner, loser) {
-	compScore++;
+	// compScore++;
 
-	let result = document.querySelector(".result");
-	result.textContent = "SORRY, YOU LOSE";
-	result.style.color = 'red';
-	result.style.fontWeight = "bold";
-	setTimeout(function() {
-		result.textContent = "RESULT";
-	}, 2000);
+	let result = document.querySelector("#result");
+		result.textContent = "Sorry, You Lose :(";
+		result.style.color = "#f23854"
 
-	console.log("Your score: " + userScore);
-	console.log("Computer score: " + compScore);
+		setTimeout(function() {
+			result.textContent = "RESULT";
+		}, 5000);
+
+	// console.log("Your score: " + userScore);
+	// console.log("Computer score: " + compScore);
 
 	console.log("You lose!");
 	console.log(winner.toUpperCase() + " always beats " + loser.toUpperCase());
 	console.log("----------------------------");
-	checkStatus();
+	// checkStatus();
 }
 
 // displays if user has won the game
 function youWin(winner, loser) {
-	userScore++;
-	let result = document.querySelector(".result");
-	result.textContent = "CONGRATS, YOU WIN!";
-	result.style.color = 'green';
-	result.style.fontWeight = "bold";
+	// userScore++;
+	let result = document.querySelector("#result");
+	result.textContent = "Congrats, You win :)";
+	result.style.color = '#2a47c7';
 	setTimeout(function() {
 		result.textContent = "RESULT";
-	}, 2000);
+	}, 5000);
 
-	console.log("Your score: " + userScore);
-	console.log("Computer score: " + compScore);
+	// console.log("Your score: " + userScore);
+	// console.log("Computer score: " + compScore);
 	console.log("Congrats, You win!");
 	console.log(winner.toUpperCase() + " always beats " + loser.toUpperCase());
 
 	console.log("----------------------------");
-	checkStatus();
+	// checkStatus();
 }
 
+// total games system is currently disabled
+// function checkStatus() {
+// 	if (userScore >= totalGames) {
+// 		alert("Congrats, You win!");
+// 	}
+
+// 	if (compScore >= totalGames) {
+// 		alert("Sorry, You lose!");
+// 	}
+// }
+
+
 // start the game
-
-let userScore = 0;
-let compScore = 0;
-let totalGames = 5;
-
 userSelection();
 
 </script>
