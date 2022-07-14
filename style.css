@@ -5,7 +5,7 @@ body {
 
 * {
 	/*border: 1px solid #5b34eb;*/
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', "sans-serif", "Arial";
 	/*border-collapse: collapse;*/
 }
 
